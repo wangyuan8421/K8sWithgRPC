@@ -1,0 +1,21 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "PreciptationService";
+
+package preciptation;
+
+// The greeting service definition.
+service Preciptation {
+  // Sends a greeting
+  rpc GetPreciptation (PreciptationRequest) returns (PreciptationReply);
+}
+
+// The request message containing the user's name.
+message PreciptationRequest {
+  string name = 1;
+}
+
+// The response message containing the greetings.
+message PreciptationReply {
+  string message = 1;
+}
