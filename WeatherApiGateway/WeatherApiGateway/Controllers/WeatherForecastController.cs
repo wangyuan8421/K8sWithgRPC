@@ -25,12 +25,15 @@ namespace WeatherApiGateway.Controllers
         {
             using (var httpClientHandler = new HttpClientHandler())
             {
+                // by pass ssl check
                 httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
                 using (var httpClient = new HttpClient(httpClientHandler))
                 {
+                    #region by pass ssl check
                     var opt = new GrpcChannelOptions();
                     opt.HttpClient= httpClient;
                     using var channel = GrpcChannel.ForAddress("https://172.21.36.96:443", opt);
+                    #endregion
                     var client = new Temp.TempClient(channel);
 
                     var reply = await client.GetTempAsync(new TempRequest { Name = "TempRequest" });
