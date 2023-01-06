@@ -31,7 +31,7 @@ namespace WeatherApiGateway.Controllers
                 {
                     #region by pass ssl check
                     var opt = new GrpcChannelOptions();
-                    opt.HttpClient= httpClient;
+                    opt.HttpClient = httpClient;
                     using var channel = GrpcChannel.ForAddress("https://172.21.43.15:443", opt);
                     #endregion
                     var client = new Temp.TempClient(channel);
@@ -47,7 +47,17 @@ namespace WeatherApiGateway.Controllers
                     .ToArray();
                 }
             }
-            
+        }
+
+        [HttpGet("static")]
+        public async Task<IEnumerable<WeatherForecast>> GetStatic()
+        {
+            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            {
+                Date = DateTime.Now.AddDays(index),
+                TemperatureC = 999,
+                Summary = "something else"
+            }).ToArray();
         }
     }
 }
