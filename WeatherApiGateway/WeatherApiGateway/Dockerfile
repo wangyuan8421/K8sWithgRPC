@@ -12,12 +12,12 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["WeatherApiGateway/WeatherApiGateway.csproj", "WeatherApiGateway/"]
 RUN dotnet restore "WeatherApiGateway/WeatherApiGateway.csproj"
+
 COPY . .
-WORKDIR "/src/WeatherApiGateway"
-RUN dotnet build "WeatherApiGateway.csproj" -c Release -o /app/build
+RUN dotnet build "WeatherApiGateway/WeatherApiGateway.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "WeatherApiGateway.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "WeatherApiGateway/WeatherApiGateway.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
