@@ -1,12 +1,11 @@
-using Grpc.Core;
-using TempService;
-
 namespace TempService.Services
 {
-    public class GreeterService : Temp.TempBase
+    using Grpc.Core;
+    using TempService;
+    public class HistoryTemp : Temp.TempBase
     {
-        private readonly ILogger<GreeterService> _logger;
-        public GreeterService(ILogger<GreeterService> logger)
+        private readonly ILogger<HistoryTemp> _logger;
+        public HistoryTemp(ILogger<HistoryTemp> logger)
         {
             _logger = logger;
         }
@@ -15,7 +14,7 @@ namespace TempService.Services
         {
             return Task.FromResult(new TempReply
             {
-                Message = "Hello " + request.Name
+                TempHistoryVal = -request.Tempval
             });
         }
     }

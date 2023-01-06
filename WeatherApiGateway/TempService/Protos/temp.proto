@@ -12,10 +12,10 @@ service Temp {
 
 // The request message containing the user's name.
 message TempRequest {
-  string name = 1;
+  int32 tempval = 1;
 }
 
 // The response message containing the greetings.
 message TempReply {
-  string message = 1;
+  int32 tempHistoryVal = 1;
 }

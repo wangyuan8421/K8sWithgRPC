@@ -32,17 +32,17 @@ namespace WeatherApiGateway.Controllers
                     #region by pass ssl check
                     var opt = new GrpcChannelOptions();
                     opt.HttpClient= httpClient;
-                    using var channel = GrpcChannel.ForAddress("https://172.21.36.96:443", opt);
+                    using var channel = GrpcChannel.ForAddress("https://172.21.43.15:443", opt);
                     #endregion
                     var client = new Temp.TempClient(channel);
 
-                    var reply = await client.GetTempAsync(new TempRequest { Name = "TempRequest" });
+                    var reply = await client.GetTempAsync(new TempRequest { Tempval = 20 });
 
                     return Enumerable.Range(1, 5).Select(index => new WeatherForecast
                     {
                         Date = DateTime.Now.AddDays(index),
-                        TemperatureC = Random.Shared.Next(-20, 55),
-                        Summary = reply.Message
+                        TemperatureC = reply.TempHistoryVal,
+                        Summary = "something else"
                     })
                     .ToArray();
                 }
